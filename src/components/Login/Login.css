@@ -39,6 +39,7 @@
     border-radius: 5px;
     border: none;
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 .or-container{
     display: flex;
