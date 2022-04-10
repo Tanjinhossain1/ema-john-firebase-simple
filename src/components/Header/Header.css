@@ -7,7 +7,12 @@
     padding-left: 140px;
     padding-right: 140px;
 }
-
+.header button{
+border: 0;
+background-color: #1C2B35;
+color: white;
+margin-left: 36px;
+}
 .header a{
     color: #FFFFFF;
     text-decoration: none;

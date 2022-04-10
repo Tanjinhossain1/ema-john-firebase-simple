@@ -1,22 +1,51 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate()
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
+    
+
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
+    }
+    const handlePassword = (event) => {
+        setPassword(event.target.value)
+    }
+    if(user){
+        navigate('/shop');
+    }
+    const signInEmailPassword = (e) =>{
+        e.preventDefault();
+        signInWithEmailAndPassword(email, password)
+    }
     return (
       <div className='login-container'>
             <div className='form-container'>
             <div>
                 <h2 className='form-title'>Login</h2>
-                <form>
+                <form onSubmit={signInEmailPassword}>
                     <div className="form-group">
                         <label htmlFor="Email">Email</label>
-                        <input type="email" name="email" id="" />
+                        <input onBlur={handleEmail} type="email" name="email" id="" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" id="" />
+                        <input onBlur={handlePassword} type="password" name="password" id="" />
                     </div>
+                    <p>{error?.message.slice(22, 42)}</p>
+                    {loading &&<p>Loading...</p>}
                     <input className='submit-input' type="submit" value="Login" />
                 </form>
                 <p>
